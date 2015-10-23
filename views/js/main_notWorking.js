@@ -98,7 +98,8 @@ pizzaIngredients.nonMeats = [
   "Hummus"
 ];
 pizzaIngredients.cheeses = [
-  "American Cheese",
+  //"American Cheese",
+  "dina dina dina dina"
   "Swiss Cheese",
   "Goat Cheese",
   "Mozzarella Cheese",
@@ -525,7 +526,7 @@ function updatePositions() {
   /*Dina - get this query outside of the for lop*/
   var scroll = document.body.scrollTop/ 1250;
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin(scroll + (i));
+    var phase = Math.sin(scroll + (i%5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
   console.log('now I am here');
@@ -544,7 +545,7 @@ function updatePositions() {
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
-/*
+
 document.addEventListener('DOMContentLoaded', function() {
   var movingPizzas1 = document.querySelector("#movingPizzas1");
   var cols = 8;
@@ -564,5 +565,5 @@ document.addEventListener('DOMContentLoaded', function() {
   updatePositions();
 });
 
-*/
+
  

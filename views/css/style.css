@@ -30,15 +30,13 @@ form {
 }
 
 .mover {
-  will-change: transform;
   position: fixed;
   width: 256px;
   z-index: -1;
-  transform: translate3d(0,0,0);
+  
 }
 
 .randomPizzaContainer {
-  will-change: transform;
   float: left;
   display: flex;
 }
