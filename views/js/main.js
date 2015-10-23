@@ -528,7 +528,6 @@ function updatePositions() {
     var phase = Math.sin(scroll + (i));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
-  console.log('now I am here');
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
