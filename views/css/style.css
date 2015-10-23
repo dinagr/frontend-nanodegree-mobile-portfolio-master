@@ -30,7 +30,7 @@ form {
 }
 
 .mover {
- /* will-change: transform;*/
+  will-change: transform;
   position: fixed;
   width: 256px;
   z-index: -1;
@@ -38,6 +38,7 @@ form {
 }
 
 .randomPizzaContainer {
+  will-change: transform;
   float: left;
   display: flex;
 }
