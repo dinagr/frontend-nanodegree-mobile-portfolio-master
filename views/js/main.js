@@ -524,9 +524,14 @@ function updatePositions() {
   var items = document.querySelectorAll('.mover');
   /*Dina - get this query outside of the for lop*/
   var scroll = document.body.scrollTop/ 1250;
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin(scroll + (i));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  var numOfPizzas = items.length;
+  var phase = [];
+  for (var j = 0; j < 5; j++){
+    phase[j] = Math.sin(scroll + (j)) * 100;
+  }
+  for (var i = 0; i < numOfPizzas; i++) {
+    //var phase = Math.sin(scroll + (i));
+    items[i].style.left = items[i].basicLeft + phase[i%5] + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
