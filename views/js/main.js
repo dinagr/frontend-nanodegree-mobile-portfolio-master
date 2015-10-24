@@ -548,7 +548,7 @@ function updatePositions() {
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+window.addEventListener('scroll', requestTick);
  // calls requestAnimationFrame
 function requestTick() {
   if(!ticking) {
