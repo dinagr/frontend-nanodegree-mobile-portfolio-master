@@ -558,7 +558,7 @@ function requestTick() {
   ticking = true;
 }
 // Generates the sliding pizzas when the page loads.
-/*
+
 document.addEventListener('DOMContentLoaded', function() {
   var movingPizzas1 = document.querySelector("#movingPizzas1");
   var cols = 8;
@@ -574,9 +574,8 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(elem.style.top);
     movingPizzas1.appendChild(elem);
   }
-  console.log('i am here');
   updatePositions();
 });
 
-*/
+
  
