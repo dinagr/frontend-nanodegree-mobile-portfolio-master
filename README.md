@@ -4,6 +4,14 @@ This is a URL of the optimized website http://dinagr.github.io/frontend-nanodegr
 
 ##Optimazations - 
 
+#index.html / project_2048.jtml / project_mobile.html / project_webpref.html
+
+1. Commenting the fonts that are not working
+2. Adding media queries to the css files
+3. Inline part of the css
+4. Inline one of the js files in the footer and make it async
+5. Define all the js as async and move them to the footer
+
 #Pizza.html
 
 1. Dividing the style.css file to a few files and adding media query to some of them.
@@ -40,6 +48,35 @@ This is a URL of the optimized website http://dinagr.github.io/frontend-nanodegr
     	//window.items[i].style.transform = 'translateX(' + ((i % 8) * 256 + (100 * phase[i%5])) + 'px)';
   	}
   	3.d. Adding requestAnimationFrame ofr the activation of this function
-  	
 
+4. Creation of the mooving pizza
+	4.1. Get lines that can be calculated once out side of the loop.
+	4.2. Calculate how many pizzas need to be shown to the user according to the dimensions of the window.
+document.addEventListener('DOMContentLoaded', function() {
+  /****Calculate this outside of thed loop****/
+  var movingPizzas1 = document.querySelector("#movingPizzas1");
+  var cols = 8;
+  var s = 256;
+  /****Get the amount of needed pizzas and avoid creating too many pizzas****/
+  var pizzaWidth = Math.floor(window.innerWidth / 73.333);
+  var pizzaHeight = Math.floor(window.innerHeight / 100);
+  var numOfPizzas = pizzaWidth*pizzaHeight;
+  for (var i = 0; i < numOfPizzas; i++) {
+    var elem = document.createElement('img');
+    elem.className = 'mover';
+    elem.src = "images/pizza.png";
+    elem.style.height = "100px";
+    elem.style.width = "73.333px";
+    elem.basicLeft = (i % cols) * s;
+    elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    console.log(elem.style.top);
+    movingPizzas1.appendChild(elem);
+  }
+  updatePositions();
+});
 
+# Images 
+
+minimizing the images in free websites
+
+# minimze the css files and part of the js files (the html files and the main.js file were not minimizes so the reviewer will be able to check them).

@@ -568,9 +568,11 @@ function requestTick() {
 // Generates the sliding pizzas when the page loads.
 
 document.addEventListener('DOMContentLoaded', function() {
+  /****Calculate this outside of thed loop****/
   var movingPizzas1 = document.querySelector("#movingPizzas1");
   var cols = 8;
   var s = 256;
+  /****Get the amount of needed pizzas and avoid creating too many pizzas****/
   var pizzaWidth = Math.floor(window.innerWidth / 73.333);
   var pizzaHeight = Math.floor(window.innerHeight / 100);
   var numOfPizzas = pizzaWidth*pizzaHeight;
@@ -582,7 +584,6 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    console.log(elem.style.top);
     movingPizzas1.appendChild(elem);
   }
   updatePositions();
