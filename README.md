@@ -4,7 +4,7 @@ This is a URL of the optimized website http://dinagr.github.io/frontend-nanodegr
 
 ##Optimazations - 
 
-#index.html / project_2048.jtml / project_mobile.html / project_webpref.html
+###index.html / project_2048.jtml / project_mobile.html / project_webpref.html
 
 1. Commenting the fonts that are not working
 2. Adding media queries to the css files
@@ -12,21 +12,21 @@ This is a URL of the optimized website http://dinagr.github.io/frontend-nanodegr
 4. Inline one of the js files in the footer and make it async
 5. Define all the js as async and move them to the footer
 
-#Pizza.html
+###Pizza.html
 
 1. Dividing the style.css file to a few files and adding media query to some of them.
 2. Inline part of the css.
 
-#main.js
+###main.js
 
-1. changePizzaSizes
-	1.a. Change the switch - the result will be the new width of the image in precentage
+1. changePizzaSizes </br>
+	1.a. Change the switch - the result will be the new width of the image in precentage </br>
 	1.b. Get the 'document.querySelectorAll(".randomPizzaContainer")' out of the loop.
 
-2. Get the creation of pizzaDiv outside of the loop
-	for (var i = 2; i < 100; i++) {
-  		var pizzasDiv = document.getElementById("randomPizzas");
-  	pizzasDiv.appendChild(pizzaElementGenerator(i));
+2. Get the creation of pizzaDiv outside of the loop </br>
+	for (var i = 2; i < 100; i++) { </br>
+  		var pizzasDiv = document.getElementById("randomPizzas"); </br>
+  	pizzasDiv.appendChild(pizzaElementGenerator(i)); </br>
 	}
 
 3. updatePositions
@@ -75,8 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
   updatePositions();
 });
 
-# Images 
+#### Images 
 
 minimizing the images in free websites
 
-# minimze the css files and part of the js files (the html files and the main.js file were not minimizes so the reviewer will be able to check them).
+### minimze the css files and part of the js files 
+The html files and the main.js file were not minimizes so the reviewer will be able to check them.
