@@ -454,7 +454,7 @@ var resizePizzas = function(size) {
     var newwidth;
      switch(size) {
         case "1":
-          pizzaImg = 25;
+          newwidth = 20;
           break;
         case "2":
           newwidth = 33.3;
