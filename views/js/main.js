@@ -420,7 +420,8 @@ var resizePizzas = function(size) {
   }
 
   changeSliderLabel(size);
-
+  /*****************************************This part of the code was commented*************************************/
+  /***********************************8I changed this code with the following code**********************************/
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   /*function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
@@ -450,7 +451,10 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    /*added by dine*/
+    /*****added by Dina*****/
+    /****Enter into the newwidth parameter the new width in precentage****/
+    /****The original width in the DOM is 33.3%, so this is the size of the regular pizza****/
+    /****The small pizza size will cause a samller with the 33.3 and the big pizza will cause a bigger width ****/
     var newwidth;
      switch(size) {
         case "1":
@@ -465,12 +469,11 @@ var resizePizzas = function(size) {
         default:
           console.log("bug in sizeSwitcher");
       }
+      /****I got this line out of the loop****/
     var randomPizza = document.querySelectorAll(".randomPizzaContainer");
     //var dx = determineDx(document.querySelector(".randomPizzaContainer:first-child"), size);
     for (var i = 0; i < randomPizza.length; i++) {
-      //var dx = determineDx(randomPizza[i], size);
-      //var newwidth = (randomPizza[i].offsetWidth + dx) + 'px';
-      //console.log(newwidth);
+      /****Update the width of the image - it chnages it's size****/
       randomPizza[i].style.width = newwidth + '%';
     }
   }
@@ -487,6 +490,7 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+/***Get this line out of the loop so the the element will be got only once*****/
 var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
   //var pizzasDiv = document.getElementById("randomPizzas");
@@ -521,20 +525,23 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
  
-  /*Dina - get this query outside of the for lop*/
+  /*Get these 3 queries outside of the for lop*/
   var items = document.querySelectorAll('.mover');
   var scroll = document.body.scrollTop/ 1250;
   var numOfPizzas = items.length;
+  /****There are 5 different results - so they are created outside if the main loop****/
   var phase = [];
   for (var j = 0; j < 5; j++){
     phase[j] = Math.sin(scroll + (j)) * 100;
   }
   for (var i = 0; i < numOfPizzas; i++) {
-    //var phase = Math.sin(scroll + (i));
+    /****Calculate where the pizza need to be moved****/
     var moveX = items[i].basicLeft + phase[i%5];
+    /****The move is being done by transform instead of left - it does not activate the layout and paint****/
     items[i].style.transform = 'translate3d(' + moveX + 'px, 0,0)';
     //window.items[i].style.transform = 'translateX(' + ((i % 8) * 256 + (100 * phase[i%5])) + 'px)';
   }
+  /****Defined for the requestAnimationFrame****/
   ticking = false;
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
@@ -548,6 +555,7 @@ function updatePositions() {
 }
 
 // runs updatePositions on scroll
+/****Check if the function is allready active - if not, activate****/
 window.addEventListener('scroll', requestTick);
  // calls requestAnimationFrame
 function requestTick() {
@@ -563,7 +571,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var movingPizzas1 = document.querySelector("#movingPizzas1");
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 20; i++) {
+  var pizzaWidth = Math.floor(window.innerWidth / 73.333);
+  var pizzaHeight = Math.floor(window.innerHeight / 100);
+  var numOfPizzas = pizzaWidth*pizzaHeight;
+  for (var i = 0; i < numOfPizzas; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
