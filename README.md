@@ -1,73 +1,84 @@
 ## Website Performance Optimization portfolio project
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+This is a URL of the optimized website http://dinagr.github.io/frontend-nanodegree-mobile-portfolio-master/views/pizza.html
 
-To get started, check out the repository, inspect the code,
+##Optimazations - 
 
-### Getting started
+###index.html / project_2048.jtml / project_mobile.html / project_webpref.html
 
-####Part 1: Optimize PageSpeed Insights score for index.html
+1. Commenting the fonts that are not working
+2. Adding media queries to the css files
+3. Inline part of the css
+4. Inline one of the js files in the footer and make it async
+5. Define all the js as async and move them to the footer
 
-Some useful tips to help you get started:
+###Pizza.html
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+1. Dividing the style.css file to a few files and adding media query to some of them.
+2. Inline part of the css.
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
+###main.js
 
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to make your local server accessible remotely.
+1. changePizzaSizes </br>
+	1.a. Change the switch - the result will be the new width of the image in precentage </br>
+	1.b. Get the 'document.querySelectorAll(".randomPizzaContainer")' out of the loop.
 
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ngrok 8080
-  ```
+2. Get the creation of pizzaDiv outside of the loop </br>
+	for (var i = 2; i < 100; i++) { </br>
+  		var pizzasDiv = document.getElementById("randomPizzas"); </br>
+  	pizzasDiv.appendChild(pizzaElementGenerator(i)); </br>
+	}
 
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
+3. updatePositions </br>
+	3.a. Get these calculation out of the loop </br>
+	var items = document.querySelectorAll('.mover'); </br>
+  	var scroll = document.body.scrollTop/ 125o0; </br>
+  	var numOfPizzas = items.length; </br>
+  	3.b. There are 5 results that can be recievd - so they are calculated outside of the main loop </br>
+  	var phase = []; </br>
+  	for (var j = 0; j < 5; j++){ </br>
+    	phase[j] = Math.sin(scroll + (j)) * 100; </br>
+  	} </br>
+  	3.c. Change the transform instead of the left property - this does not activate layout and paint </br> 
+  	for (var i = 0; i < numOfPizzas; i++) { </br>
+    	/****Calculate where the pizza need to be moved****/ </br>
+    	var moveX = items[i].basicLeft + phase[i%5]; </br>
+    	/****The move is being done by transform instead of left - it does not activate the layout and paint****/ </br>
+    	items[i].style.transform = 'translate3d(' + moveX + 'px, 0,0)'; </br>
+    	//window.items[i].style.transform = 'translateX(' + ((i % 8) * 256 + (100 * phase[i%5])) + 'px)'; </br>
+  	} </br>
+  	3.d. Adding requestAnimationFrame ofr the activation of this function
 
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
+4. Creation of the mooving pizza </br>
+	4.1. Get lines that can be calculated once out side of the loop. </br>
+	4.2. Calculate how many pizzas need to be shown to the user according to the dimensions of the window. </br>
+document.addEventListener('DOMContentLoaded', function() { </br>
+  /****Calculate this outside of thed loop****/ </br>
+  var movingPizzas1 = document.querySelector("#movingPizzas1"); </br>
+  var cols = 8; </br>
+  var s = 256; </br>
+  /****Get the amount of needed pizzas and avoid creating too many pizzas****/ </br>
+  var pizzaWidth = Math.floor(window.innerWidth / 73.333); </br>
+  var pizzaHeight = Math.floor(window.innerHeight / 100); </br>
+  var numOfPizzas = pizzaWidth*pizzaHeight; </br>
+  for (var i = 0; i < numOfPizzas; i++) { </br>
+    var elem = document.createElement('img'); </br>
+    elem.className = 'mover'; </br>
+    elem.src = "images/pizza.png"; </br>
+    elem.style.height = "100px"; </br>
+    elem.style.width = "73.333px"; </br>
+    elem.basicLeft = (i % cols) * s; </br>
+    elem.style.top = (Math.floor(i / cols) * s) + 'px'; </br>
+    console.log(elem.style.top); </br>
+    movingPizzas1.appendChild(elem); </br>
+  } </br>
+  updatePositions(); </br>
+});
 
-####Part 2: Optimize Frames per Second in pizza.html
+#### Images 
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+minimizing the images in free websites
 
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
+### minimze the css files and part of the js files 
 
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
-
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
-
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
-
-### Sample Portfolios
-
-Feeling uninspired by the portfolio? Here's a list of cool portfolios I found after a few minutes of Googling.
-
-* <a href="http://www.reddit.com/r/webdev/comments/280qkr/would_anybody_like_to_post_their_portfolio_site/">A great discussion about portfolios on reddit</a>
-* <a href="http://ianlunn.co.uk/">http://ianlunn.co.uk/</a>
-* <a href="http://www.adhamdannaway.com/portfolio">http://www.adhamdannaway.com/portfolio</a>
-* <a href="http://www.timboelaars.nl/">http://www.timboelaars.nl/</a>
-* <a href="http://futoryan.prosite.com/">http://futoryan.prosite.com/</a>
-* <a href="http://playonpixels.prosite.com/21591/projects">http://playonpixels.prosite.com/21591/projects</a>
-* <a href="http://colintrenter.prosite.com/">http://colintrenter.prosite.com/</a>
-* <a href="http://calebmorris.prosite.com/">http://calebmorris.prosite.com/</a>
-* <a href="http://www.cullywright.com/">http://www.cullywright.com/</a>
-* <a href="http://yourjustlucky.com/">http://yourjustlucky.com/</a>
-* <a href="http://nicoledominguez.com/portfolio/">http://nicoledominguez.com/portfolio/</a>
-* <a href="http://www.roxannecook.com/">http://www.roxannecook.com/</a>
-* <a href="http://www.84colors.com/portfolio.html">http://www.84colors.com/portfolio.html</a>
+The html files and the main.js file were not minimizes so the reviewer will be able to check them.
